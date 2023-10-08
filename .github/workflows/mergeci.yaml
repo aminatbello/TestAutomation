@@ -1,9 +1,12 @@
 
-name: GitHub Actions Demo
-on : [ push ]
+name: Merge CI
+on : [ pull-request ]
 jobs:
   Test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix: 
+        os: [ubuntu-latest, windows-latest, macos-latest] 
     steps:
       - uses: actions/checkout@v2
       - run: echo "The job automatically triggered by a ${{github.event_name}} event."
